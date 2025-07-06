@@ -1,6 +1,6 @@
-@extends('layouts.master-admin')
+@extends('layouts.master-auctioneer')
 
-@section('title', 'Dashboard Admin')
+@section('title', 'Dashboard Pelelang')
 
 @section('content')
         <!-- Content wrapper -->
@@ -15,16 +15,15 @@
                         <div class="card-body">
                           <h5 class="card-title text-primary mb-3">Selamat Datang {{ Auth::user()->name }}🙌</h5>
                           <p class="mt-6 fw-medium">
-                            Lewat beranda ini, kamu bisa memantau semua aktivitas pengguna, 
-                            menyetujui pendaftar pelelang, memeriksa barang yang dilelang, 
-                            <br>dan memastikan semua transaksi berjalan lancar.
+                            Terima kasih telah bergabung sebagai pelelang di platform kami.
+                            <br>Di halaman ini, Anda dapat mengelola semua aktivitas lelang Anda dengan mudah dan aman.
                           </p>
                         </div>
                       </div>
                       <div class="col-sm-5 text-center text-sm-left">
                         <div class="card-body pb-0 px-0 px-md-6">
                           <img
-                            src="{{ asset('/img/illustrations/man-with-laptop.png') }}"
+                            src="{{ asset('/img/illustrations/auctioneer.jpg') }}"
                             height="175"
                             alt="View Badge User" />
                         </div>

@@ -27,8 +27,16 @@
                         @if (Route::has('login'))
                             <nav class="-mx-3 flex flex-1 justify-end">
                                 @auth
+                                @php
+                                    $dashboardRoute = route('dashboard'); // default
+                                    if (auth()->user()->hasRole('admin')) {
+                                        $dashboardRoute = route('admin.dashboard');
+                                    } elseif (auth()->user()->hasRole('auctioneer')) {
+                                        $dashboardRoute = route('auctioneer.dashboard');
+                                    }
+                                @endphp
                                     <a
-                                        href="{{ url('/dashboard') }}"
+                                        href="{{ $dashboardRoute }}"
                                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                     >
                                         Dashboard

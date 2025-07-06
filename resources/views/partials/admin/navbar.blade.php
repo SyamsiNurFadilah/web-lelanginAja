@@ -46,7 +46,15 @@
                           </div>
                           <div class="flex-grow-1">
                             <h6 class="mb-0">{{ Auth::user()->name }}</h6>
-                            <small class="text-body-secondary">Admin</small>
+                            @php
+                                $roleText = match(true) {
+                                    auth()->user()->hasRole('admin') => 'Admin',
+                                    auth()->user()->hasRole('auctioneer') => 'Pelelang',
+                                    auth()->user()->hasRole('bidding') => 'Penawar',
+                                    default => 'User',
+                                };
+                            @endphp
+                            <small class="text-body-secondary">{{ $roleText }}</small>
                           </div>
                         </div>
                       </a>

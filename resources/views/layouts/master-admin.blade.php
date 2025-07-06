@@ -11,7 +11,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard Admin</title>
+    <title>@yield('title')</title>
 
     <meta name="description" content="" />
 
@@ -57,21 +57,19 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
 
-        @include('partials.sidebar')
+        @include('partials.admin.sidebar')
 
         <!-- Layout container -->
         <div class="layout-page">
 
-            @include('partials.navbar')
+            @include('partials.admin.navbar')
 
             @yield('content')
 
-            
             <div class="content-backdrop fade"></div>
         </div>
         <!-- Content wrapper -->
-        @include('partials.footer')
-    </div>
+      </div>
     <!-- / Layout page -->
       </div>
 
@@ -105,5 +103,48 @@
 
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    {{-- SweetAlert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Yakin ingin menghapus?',
+            text: "Data admin tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('form-delete-' + id).submit();
+            }
+        });
+    }
+  </script>
+
+  <script>
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    @endif
+
+    @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: '{{ session('error') }}',
+            showConfirmButton: true
+        });
+    @endif
+  </script>
+
   </body>
 </html>

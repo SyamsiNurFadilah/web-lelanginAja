@@ -16,15 +16,15 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
-            <li class="menu-item active open">
-              <a href="javascript:void(0);" class="menu-link">
+            <li class="menu-item {{ Route::is('admin.dashboard') ? 'active open' : '' }}">
+              <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-smile"></i>
                 <div class="text-truncate" data-i18n="Dashboards">Beranda</div>
               </a>
             </li>
 
             <!-- Layouts -->
-            <li class="menu-item">
+            <li class="menu-item {{ Route::is('admin.index') ? 'active open' : '' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div class="text-truncate" data-i18n="Layouts">Kelola Pengguna</div>
@@ -41,8 +41,8 @@
                     <div class="text-truncate" data-i18n="Without menu">Verifikasi Pelelang</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="layouts-without-navbar.html" class="menu-link">
+                <li class="menu-item {{ Route::is('admin.index') ? 'active' : '' }}">
+                  <a href="{{ route('admin.index') }}" class="menu-link">
                     <div class="text-truncate" data-i18n="Without navbar">Tambah Admin Baru</div>
                   </a>
                 </li>
@@ -62,6 +62,14 @@
                     class="menu-link"
                     target="_blank">
                     <div class="text-truncate" data-i18n="Landing">Daftar Semua Barang</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/landing-page.html"
+                    class="menu-link"
+                    target="_blank">
+                    <div class="text-truncate" data-i18n="Landing">Kategori Barang</div>
                   </a>
                 </li>
                 <li class="menu-item">
