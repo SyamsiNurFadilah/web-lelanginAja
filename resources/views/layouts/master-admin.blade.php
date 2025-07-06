@@ -122,8 +122,27 @@
                 document.getElementById('form-delete-' + id).submit();
             }
         });
-    }
-  </script>
+      }
+    </script>
+
+    <script>
+    function confirmBlock(id) {
+        Swal.fire({
+            title: 'Yakin ingin memblokir pelelang ini?',
+            text: "Status pelelang tidak bisa dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Ya, blokir!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('form-block-' + id).submit();
+            }
+        });
+      }
+    </script>
 
   <script>
     @if(session('success'))

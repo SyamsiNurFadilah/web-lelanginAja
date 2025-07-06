@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2 class="font-semibold text-xl mb-3">Kelola Admin</h2>
+    <h3>Kelola Admin</h3>
 
     <div class="mb-3">
         <a href="{{ route('admin.create') }}" class="btn btn-primary rounded-3 shadow-sm">

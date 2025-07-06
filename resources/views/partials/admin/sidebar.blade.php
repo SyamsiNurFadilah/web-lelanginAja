@@ -24,15 +24,15 @@
             </li>
 
             <!-- Layouts -->
-            <li class="menu-item {{ Route::is('admin.index') ? 'active open' : '' }}">
+            <li class="menu-item {{ Route::is('auctioneer.index') || Route::is('admin.index') ? 'active open' : '' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div class="text-truncate" data-i18n="Layouts">Kelola Pengguna</div>
               </a>
 
               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="layouts-without-menu.html" class="menu-link">
+                <li class="menu-item {{ Route::is('auctioneer.index') ? 'active' : '' }}">
+                  <a href="{{ route('auctioneer.index') }}" class="menu-link">
                     <div class="text-truncate" data-i18n="Without menu">Daftar Pelelang</div>
                   </a>
                 </li>

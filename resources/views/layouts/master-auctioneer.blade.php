@@ -70,7 +70,6 @@
             <div class="content-backdrop fade"></div>
         </div>
         <!-- Content wrapper -->
-        @include('partials.admin.footer')
     </div>
     <!-- / Layout page -->
       </div>
