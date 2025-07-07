@@ -25,7 +25,7 @@
                             <td>
                                 @if ($user->status === 'aktif')
                                     <span class="badge bg-success">Aktif</span>
-                                @elseif ($user->status === 'ditangguhkan')
+                                @elseif ($user->status === 'menunggu konfirmasi')
                                     <span class="badge bg-warning text-dark">Menunggu Konfirmasi</span>
                                 @else
                                     <span class="badge bg-danger">Nonaktif</span>

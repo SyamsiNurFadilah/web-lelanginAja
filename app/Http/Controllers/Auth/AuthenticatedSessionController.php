@@ -30,15 +30,17 @@ class AuthenticatedSessionController extends Controller
 
         $user = $request->user();
 
-
         if ($user->hasRole('admin')) {
             return redirect()->intended('/dashboard-admin');
-        } elseif ($user->hasRole('user')) {
+        } elseif ($user->hasRole('bidder')) {
             return redirect()->intended('/dashboard');
         } elseif ($user->hasRole('auctioneer')) {
+            if ($user->status === 'aktif') {
             return redirect()->intended('/dashboard-auctioneer');
-        } 
-
+            } else {
+                return redirect()->route('auctioneer.form'); 
+            }
+        }
         return redirect()->intended('/login')->with('error', 'Unauthorized role.');
     }
 

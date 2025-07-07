@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\AuctioneerController;
 use App\Http\Controllers\AuctionListController;
 use App\Http\Controllers\AuctioneerPageController;
+use App\Http\Controllers\AuctioneerRegistrationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +36,11 @@ Route::middleware(['auth','verified','role:admin'])->group(function(){
 
 Route::middleware(['auth','verified','role:auctioneer'])->group(function(){
     Route::get('/dashboard-auctioneer', [AuctioneerPageController::class,'index'])->name('auctioneer.dashboard');
+    Route::get('/auctioneer/form', [AuctioneerRegistrationController::class, 'create'])->name('auctioneer.form');
+    Route::post('/auctioneer/form', [AuctioneerRegistrationController::class, 'store'])->name('auctioneer.form.store');
 });
+Route::get('/auctioneer/waiting', function () {
+    return view('auctioneer.waiting');
+})->name('auctioneer.waiting');
 
 require __DIR__.'/auth.php';

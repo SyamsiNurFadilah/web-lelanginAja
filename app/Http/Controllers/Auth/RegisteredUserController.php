@@ -33,17 +33,29 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required', 'in:bidder,auctioneer'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'status' => $request->role === 'auctioneer' ? 'menunggu konfirmasi' : 'aktif',
         ]);
+
+        $user->assignRole($request->role);
 
         event(new Registered($user));
 
         Auth::login($user);
+
+       if ($user->hasRole('bidder')) {
+        return redirect()->route('dashboard');
+        } elseif ($user->hasRole('auctioneer')) {
+            return $user->status === 'aktif'
+                ? redirect()->route('dashboard-auctioneer')
+                : redirect()->route('auctioneer.form');
+        }
 
         return redirect(route('dashboard', absolute: false));
     }
