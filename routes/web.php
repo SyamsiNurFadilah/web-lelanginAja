@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\AuctioneerController;
 use App\Http\Controllers\AuctionListController;
 use App\Http\Controllers\AuctioneerPageController;
+use App\Http\Controllers\AdminAuctioneerController;
 use App\Http\Controllers\AuctioneerRegistrationController;
 
 Route::get('/', function () {
@@ -29,18 +30,22 @@ Route::middleware(['auth','verified','role:admin'])->group(function(){
 });
 
 Route::middleware(['auth','verified','role:admin'])->group(function(){
-    Route::resource('/admin', AdminController::class);
+    Route::resource('/admin', AdminController::class)->except(['show']);
     Route::get('/auctioneer-list', [AuctionListController::class,'index'])->name('auctioneer.index');
-    Route::patch('/auctioneer-list/{user}/block', [AuctionListController::class, 'block'])->name('auctioneer.block');
+    Route::patch('/auctioneer-list/{user}/block', [AdminAuctioneerController::class, 'block'])->name('auctioneer.block');
+    Route::get('/admin/auctioneer', [AdminAuctioneerController::class, 'index'])->name('admin.auctioneer.index');
+    Route::put('/admin/auctioneer/{id}/approve', [AdminAuctioneerController::class, 'approve'])->name('admin.auctioneer.approve');
+    Route::put('/admin/auctioneer/{id}/reject', [AdminAuctioneerController::class, 'reject'])->name('admin.auctioneer.reject');
 });
 
-Route::middleware(['auth','verified','role:auctioneer'])->group(function(){
+Route::middleware(['auth','verified','role:auctioneer','auctioneer.aktif'])->group(function(){
     Route::get('/dashboard-auctioneer', [AuctioneerPageController::class,'index'])->name('auctioneer.dashboard');
-    Route::get('/auctioneer/form', [AuctioneerRegistrationController::class, 'create'])->name('auctioneer.form');
-    Route::post('/auctioneer/form', [AuctioneerRegistrationController::class, 'store'])->name('auctioneer.form.store');
 });
+
+Route::get('/auctioneer/form', [AuctioneerRegistrationController::class, 'create'])->name('auctioneer.form');
+Route::post('/auctioneer/form', [AuctioneerRegistrationController::class, 'store'])->name('auctioneer.form.store');
 Route::get('/auctioneer/waiting', function () {
-    return view('auctioneer.waiting');
+return view('auctioneer.waiting');
 })->name('auctioneer.waiting');
 
 require __DIR__.'/auth.php';

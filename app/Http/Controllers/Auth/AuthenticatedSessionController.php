@@ -57,4 +57,13 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->auctioneerRegistration && $user->auctioneerRegistration->status === 'menunggu verifikasi') {
+            return redirect()->route('auctioneer.waiting');
+        }
+
+        return redirect()->intended('/dashboard-auctioneer');
+    }
 }
