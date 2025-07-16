@@ -1,5 +1,7 @@
 @extends('layouts.master-admin')
 
+@section('title', 'Daftar Pelelang')
+
 @section('content')
 <div class="container mt-4">
     <h3>Daftar Pelelang</h3>
@@ -31,7 +33,7 @@
                         @elseif($auctioneer->status == 'nonaktif')
                             <span class="badge bg-danger">Nonaktif</span>
                         @else
-                            <span class="badge bg-warning text-dark">Menunggu Konfirmasi</span>
+                            <span class="badge bg-warning text-dark">Menunggu</span>
                         @endif
                     </td>
                     <td>
@@ -48,10 +50,14 @@
                                     Blokir
                                 </button>
                             </form>
-                        @else
-                                <button class="btn btn-sm btn-secondary rounded-3 px-3" disabled>
-                                    Sudah Diblokir
+                        @else 
+                            <form id="form-delete-{{ $auctioneer->id }}" action="{{ route('auctioneer.destroy', $auctioneer->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="btn btn-sm btn-danger rounded-3 px-3" onclick="confirmDelete({{ $auctioneer->id }})">
+                                    Hapus
                                 </button>
+                            </form>
                         @endif
                     </td>
                 </tr>

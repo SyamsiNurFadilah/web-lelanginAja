@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\AuctioneerRegistration;
 
@@ -38,5 +39,22 @@ class AdminAuctioneerController extends Controller
         $auctioneer->save();
 
         return redirect()->route('auctioneer.index')->with('success', 'Pelelang berhasil diblokir.');
+    }
+
+    public function destroy($id)
+    {
+        $registration = AuctioneerRegistration::findOrFail($id);
+
+        if ($registration->status !== 'nonaktif') {
+            return redirect()->back()->with('error', 'Pelelang sudah tidak aktif, tidak bisa dihapus.');
+        }
+
+        $user = $registration->user;
+
+        if($user) {
+            $user->delete();
+        }
+
+        return redirect()->route('auctioneer.index')->with('success', 'Pelelang berhasil dihapus.');
     }
 }

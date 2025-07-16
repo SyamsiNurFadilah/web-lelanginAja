@@ -11,7 +11,7 @@ class AuctionListController extends Controller
 
     public function index()
     {
-        $allAuctioneers = AuctioneerRegistration::all(); // Ambil semua tanpa filter
+        $allAuctioneers = AuctioneerRegistration::all();
         return view('admin.auction-list.index', compact('allAuctioneers'));
     }
 }

@@ -1,5 +1,7 @@
 @extends('layouts.master-auctioneer-registration')
 
+@section('title', 'Menunggu Verifikasi')
+
 @section('content')
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="card shadow p-5 text-center" style="max-width: 600px; width: 100%;">

@@ -17,9 +17,18 @@ class CheckAuctioneerStatus
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
-        // dd($user?->auctioneerRegistration->toArray());
 
-        if ($user && $user->auctioneerRegistration && $user->auctioneerRegistration->status === 'menunggu verifikasi') {
+        $registration = $user->auctioneerRegistration;
+
+        if (!$registration) {
+            return redirect()->route('auctioneer.form')->with('error', 'Silakan lengkapi data terlebih dahulu');
+        }
+
+        if ($registration->status !== 'aktif') {
+            return redirect()->route('auctioneer.waiting')->with('error', 'Akun Anda sedang menunggu persetujuan.');
+        }
+
+        if ($user->role === 'auctioneer' && $user->auctioneerRegistration && $user->auctioneerRegistration->status !== 'aktif') {
             return redirect()->route('auctioneer.waiting')->with('message', 'Akun Anda masih dalam proses verifikasi. Silakan tunggu konfirmasi dari admin.');
         }
 

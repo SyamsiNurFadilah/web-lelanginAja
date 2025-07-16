@@ -30,18 +30,30 @@ class AuthenticatedSessionController extends Controller
 
         $user = $request->user();
 
+        // Admin 
         if ($user->hasRole('admin')) {
             return redirect()->intended('/dashboard-admin');
-        } elseif ($user->hasRole('bidder')) {
-            return redirect()->intended('/dashboard');
-        } elseif ($user->hasRole('auctioneer')) {
-            if ($user->status === 'aktif') {
-            return redirect()->intended('/dashboard-auctioneer');
-            } else {
-                return redirect()->route('auctioneer.form'); 
-            }
         }
-        return redirect()->intended('/login')->with('error', 'Unauthorized role.');
+
+        // Bidder
+        elseif ($user->hasRole('bidder')) {
+            return redirect()->intended('/dashboard');
+        }
+
+        // Auctioneer
+        elseif ($user->hasRole('auctioneer')) {
+            if (!$user->auctioneerRegistration) {
+                return redirect()->route('auctioneer.form')->with('message', 'Silakan lengkapi form pendaftaran terlebih dahulu.');
+            }
+
+        if ($user->auctioneerRegistration->status !== 'aktif') {
+            return redirect()->route('auctioneer.waiting')->with('message', 'Akun Anda sedang menunggu verifikasi admin.');
+        }
+
+        return redirect()->intended('/dashboard-auctioneer');
+    }
+
+    return redirect()->intended('/login')->with('error', 'Unauthorized role.');
     }
 
     /**
@@ -60,7 +72,7 @@ class AuthenticatedSessionController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if ($user->auctioneerRegistration && $user->auctioneerRegistration->status === 'menunggu verifikasi') {
+        if ($user->auctioneerRegistration && $user->auctioneerRegistration->status !== 'aktif') {
             return redirect()->route('auctioneer.waiting');
         }
 

@@ -9,11 +9,11 @@ use App\Http\Controllers\AuctionListController;
 use App\Http\Controllers\AuctioneerPageController;
 use App\Http\Controllers\AdminAuctioneerController;
 use App\Http\Controllers\AuctioneerRegistrationController;
+use App\Http\Middleware\CheckAuctioneerStatus;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -33,12 +33,13 @@ Route::middleware(['auth','verified','role:admin'])->group(function(){
     Route::resource('/admin', AdminController::class)->except(['show']);
     Route::get('/auctioneer-list', [AuctionListController::class,'index'])->name('auctioneer.index');
     Route::patch('/auctioneer-list/{user}/block', [AdminAuctioneerController::class, 'block'])->name('auctioneer.block');
+    Route::delete('/auctioneer-list/{user}/delete', [AdminAuctioneerController::class, 'destroy'])->name('auctioneer.destroy');
     Route::get('/admin/auctioneer', [AdminAuctioneerController::class, 'index'])->name('admin.auctioneer.index');
     Route::put('/admin/auctioneer/{id}/approve', [AdminAuctioneerController::class, 'approve'])->name('admin.auctioneer.approve');
     Route::put('/admin/auctioneer/{id}/reject', [AdminAuctioneerController::class, 'reject'])->name('admin.auctioneer.reject');
 });
 
-Route::middleware(['auth','verified','role:auctioneer','auctioneer.aktif'])->group(function(){
+Route::middleware(['auth','role:auctioneer', 'check.auctioneer.status',])->group(function(){
     Route::get('/dashboard-auctioneer', [AuctioneerPageController::class,'index'])->name('auctioneer.dashboard');
 });
 

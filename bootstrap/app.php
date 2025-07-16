@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'auctioneer.aktif' => App\Http\Middleware\CheckAuctioneerStatus::class,
+            'check.auctioneer.status' => App\Http\Middleware\CheckAuctioneerStatus::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

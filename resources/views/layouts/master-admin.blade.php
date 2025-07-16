@@ -144,6 +144,25 @@
       }
     </script>
 
+    <script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Yakin ingin menghapus pelelang ini?',
+            text: "Data pelelang tidak bisa dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('form-delete-' + id).submit();
+            }
+        });
+      }
+    </script>
+
   <script>
     @if(session('success'))
         Swal.fire({

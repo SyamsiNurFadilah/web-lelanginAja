@@ -27,12 +27,24 @@
                         @if (Route::has('login'))
                             <nav class="-mx-3 flex flex-1 justify-end">
                                 @auth
-                                @php
-                                    $dashboardRoute = route('dashboard'); // default
-                                    if (auth()->user()->hasRole('admin')) {
-                                        $dashboardRoute = route('admin.dashboard');
-                                    } elseif (auth()->user()->hasRole('auctioneer')) {
-                                        $dashboardRoute = route('auctioneer.dashboard');
+                               @php
+                                    $dashboardRoute = route('dashboard');
+                                    $user = auth()->user();
+
+                                    if ($user) {
+                                        if ($user->hasRole('admin')) {
+                                            $dashboardRoute = route('admin.dashboard');
+                                        } elseif ($user->hasRole('auctioneer')) {
+                                            $registration = $user->auctioneerRegistration;
+
+                                            if (!$registration) {
+                                                $dashboardRoute = route('auctioneer.form');
+                                            } elseif ($registration->status !== 'aktif') {
+                                                $dashboardRoute = route('auctioneer.waiting');
+                                            } else {
+                                                $dashboardRoute = route('auctioneer.dashboard');
+                                            }
+                                        }
                                     }
                                 @endphp
                                     <a

@@ -49,13 +49,13 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-       if ($user->hasRole('bidder')) {
+        if ($user->hasRole('bidder')) {
         return redirect()->route('dashboard');
-        } elseif ($user->hasRole('auctioneer')) {
-            return $user->status === 'aktif'
-                ? redirect()->route('dashboard-auctioneer')
-                : redirect()->route('auctioneer.form');
-        }
+            } elseif ($user->hasRole('auctioneer')) {
+                return $user->status === 'aktif'
+                    ? redirect()->route('dashboard-auctioneer')
+                    : redirect()->route('auctioneer.form');
+            }
 
         return redirect(route('dashboard', absolute: false));
     }

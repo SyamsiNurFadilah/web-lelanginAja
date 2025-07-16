@@ -1,6 +1,6 @@
 @extends('layouts.master-auctioneer-registration')
 
-@section('title', 'Form Pendaftaran lelang')
+@section('title', 'Form Pendaftaran Lelang')
 
 @section('content')
 <div class="container-fluid py-5">
