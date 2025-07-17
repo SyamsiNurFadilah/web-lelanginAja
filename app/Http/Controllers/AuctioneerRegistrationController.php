@@ -10,7 +10,6 @@ class AuctioneerRegistrationController extends Controller
 {
     public function create()
     {
-        // Check if the user is already registered as an auctioneer
         $auctioneer = Auth::user()->auctioneerRegistration;
 
         if ($auctioneer) {
@@ -49,5 +48,10 @@ class AuctioneerRegistrationController extends Controller
         ]);
 
         return redirect()->route('auctioneer.waiting')->with('success', 'Pendaftaran pelelang berhasil.');
+    }
+
+    public function waiting()
+    {
+        return view('auctioneer.waiting');
     }
 }
