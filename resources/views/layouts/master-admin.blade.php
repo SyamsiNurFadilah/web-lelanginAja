@@ -50,6 +50,51 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
 
     <script src="{{ asset('/js/config.js') }}"></script>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" style="display:none; position:fixed; z-index:9999; top:0; left:0; right:0; bottom:0; background-color: rgba(255, 255, 255, 0.7); justify-content:center; align-items:center;">
+        <lottie-player
+            src="/lottie/loader.json"
+            background="transparent"
+            speed="1"
+            style="width: 200px; height: 200px;"
+            loop
+            autoplay>
+        </lottie-player>
+    </div>
+
+    <!-- Lottie Library -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const links = document.querySelectorAll('.menu-link[href]:not([href="javascript:void(0);"])');
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    document.getElementById("loading-screen").style.display = "flex";
+                });
+            });
+        });
+    </script>
+
+    <script>
+    function hideLoadingScreen() {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+            loadingScreen.style.display = 'none';
+        }
+    }
+
+    // Saat halaman dimuat normal
+    window.addEventListener('load', hideLoadingScreen);
+
+    // Saat halaman kembali dari cache (back/forward)
+    window.addEventListener('pageshow', hideLoadingScreen);
+</script>
+
+
+    @yield('css')
+
   </head>
 
   <body>
@@ -107,9 +152,9 @@
     {{-- SweetAlert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-    function confirmDelete(id) {
+    function confirmDeleteAdmin(id) {
         Swal.fire({
-            title: 'Yakin ingin menghapus?',
+            title: 'Yakin ingin menghapus admin ini?',
             text: "Data admin tidak dapat dikembalikan!",
             icon: 'warning',
             showCancelButton: true,
@@ -119,7 +164,7 @@
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById('form-delete-' + id).submit();
+                document.getElementById('form-delete-admin' + id).submit();
             }
         });
       }

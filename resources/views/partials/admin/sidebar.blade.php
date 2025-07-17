@@ -24,20 +24,25 @@
             </li>
 
             <!-- Layouts -->
-            <li class="menu-item {{ Route::is('auctioneer.index') || Route::is('admin.index') || Route::is('admin.auctioneer.index') ? 'active open' : '' }} ">
+            <li class="menu-item {{ Route::is('admin.bidder-list.index') || Route::is('admin.auctioneer-list.index') || Route::is('admin.auctioneer-verification.index') || Route::is('admin.index') ? 'active open' : '' }} ">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div class="text-truncate" data-i18n="Layouts">Kelola Pengguna</div>
               </a>
 
               <ul class="menu-sub">
-                <li class="menu-item {{ Route::is('auctioneer.index') ? 'active' : '' }}">
-                  <a href="{{ route('auctioneer.index') }}" class="menu-link">
+                <li class="menu-item {{ Route::is('admin.bidder-list.index') ? 'active' : '' }}">
+                  <a href="{{ route('admin.bidder-list.index') }}" class="menu-link">
+                    <div class="text-truncate" data-i18n="Without menu">Daftar Penawar</div>
+                  </a>
+                </li>
+                <li class="menu-item {{ Route::is('admin.auctioneer-list.index') ? 'active' : '' }}">
+                  <a href="{{ route('admin.auctioneer-list.index') }}" class="menu-link">
                     <div class="text-truncate" data-i18n="Without menu">Daftar Pelelang</div>
                   </a>
                 </li>
-                <li class="menu-item {{ Route::is('admin.auctioneer.index') ? 'active' : '' }}">
-                  <a href="{{ route('admin.auctioneer.index') }}" class="menu-link">
+                <li class="menu-item {{ Route::is('admin.auctioneer-verification.index') ? 'active' : '' }}">
+                  <a href="{{ route('admin.auctioneer-verification.index') }}" class="menu-link">
                     <div class="text-truncate" data-i18n="Without menu">Verifikasi Pelelang</div>
                   </a>
                 </li>

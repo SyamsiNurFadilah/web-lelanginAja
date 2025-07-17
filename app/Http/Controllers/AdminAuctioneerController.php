@@ -38,7 +38,7 @@ class AdminAuctioneerController extends Controller
         $auctioneer->status = 'nonaktif';
         $auctioneer->save();
 
-        return redirect()->route('auctioneer.index')->with('success', 'Pelelang berhasil diblokir.');
+        return redirect()->route('admin.auctioneer-list.index')->with('success', 'Pelelang berhasil diblokir.');
     }
 
     public function destroy($id)
@@ -55,6 +55,6 @@ class AdminAuctioneerController extends Controller
             $user->delete();
         }
 
-        return redirect()->route('auctioneer.index')->with('success', 'Pelelang berhasil dihapus.');
+        return redirect()->route('admin.auctioneer-list.index')->with('success', 'Pelelang berhasil dihapus.');
     }
 }

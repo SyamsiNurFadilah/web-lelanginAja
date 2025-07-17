@@ -6,8 +6,8 @@
 <div class="container mt-4">
     <h3>Kelola Admin</h3>
 
-    <div class="mb-3">
-        <a href="{{ route('admin.create') }}" class="btn btn-primary rounded-3 shadow-sm">
+    <div class="mb-4">
+        <a href="{{ route('admin.create') }}" class="btn btn-primary rounded-3 shadow-sm menu-link text-white">
             + Tambah Admin Baru
         </a>
     </div>
@@ -34,10 +34,10 @@
                             <td>{{ $admin->created_at->format('d M Y') }}</td>
                             <td>
                                 <a href="{{ route('admin.edit', $admin->id) }}" class="btn btn-sm btn-warning rounded-3">Edit</a>
-                                <form id="form-delete-{{ $admin->id }}" action="{{ route('admin.destroy', $admin->id) }}" method="POST" class="d-inline">
+                                <form id="form-delete-admin{{ $admin->id }}" action="{{ route('admin.destroy', $admin->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-sm btn-danger rounded-3" onclick="confirmDelete({{ $admin->id }})">Hapus</button>
+                                    <button type="button" class="btn btn-sm btn-danger rounded-3" onclick="confirmDeleteAdmin({{ $admin->id }})">Hapus</button>
                                 </form>
                             </td>
                         </tr>

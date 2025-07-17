@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2 class="font-semibold text-xl mb-3">Tambah Admin Baru</h2>
+    <h3 class="font-semibold text-xl mb-3">Tambah Admin Baru</h3>
 
     <div class="card shadow-sm rounded-4">
         <div class="card-body">

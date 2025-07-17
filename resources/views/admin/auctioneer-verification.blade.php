@@ -3,7 +3,7 @@
 @section('title', 'Verifikasi Pelelang')
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-4">
     <h3>Verifikasi Pelelang</h3>
 
     <div class="card mt-3">
